@@ -4,13 +4,42 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Models\Phone;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('/', [CursoController::class, 'getName'])->name('home');
 Route::get('/', function () {
     return view('welcome', ['nombre' => 'Juan']);
 })->name('welcome');
+
+Route::get('/prueba', function () {
+   /*
+    User::create([
+        'name' => 'Pepe', 
+        'lastname' => 'Valencia', 
+        'email' => 'pepev@pepe.com', 
+        'phone' => '+5299999999', 
+        'password' => Hash::make('1234')
+    ]);  
+    
+
+    Phone::create([
+        'number' => '+5299999999',        
+        'user_id' => 1
+    ]);
+    */
+
+    //$user = User::where('id', 1)->with('phone')->first();
+    $phone = Phone::where('id', 1)->with('user')->first();
+    $phone = Phone::find(1);
+    
+    //return $user;
+    return $phone;
+
+});
 
 Route::get('datos', [UserController::class, 'data']);
 Route::get('guardar', [UserController::class, 'store']);
